@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment with Mercado Pago</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="checkout-container">
+        <h1>Choose how to pay</h1>
+
+        <div class="payment-section" id="saved-payment-methods-section" style="display: none;">
+            <div class="section-header">
+                <h2>With Mercado Pago</h2>
+                <img src="./assets/mp_logo.svg" alt="Mercado Pago" class="mp-logo">
+            </div>
+            <div id="account-payment-methods-list">
+                <!-- Payment methods from API will be rendered here by JavaScript -->
+            </div>
+
+            <div id="card-details-input-area" class="payment-section" style="display: none;">
+                <!-- CVV and Installments will be rendered here by JavaScript -->
+            </div>
+        </div>
+
+        <div class="payment-section" id="other-payment-options-container">
+            <div id="other-payment-options-list">
+                <!-- Initial credit card trigger will be rendered here -->
+            </div>
+        </div>
+
+        <button id="payButton" onclick="payWithMercadoPago()">Pay</button>
+    </div>
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script src="js/mercadoPago.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
