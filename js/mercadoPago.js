@@ -15,21 +15,21 @@ window.MPAuthenticator = (function () {
         }
     }
 
-    async function getAuthorizationToken() {
+    async function getFastPaymentToken() {
         try {
-            // Shows the authentication modal flow and returns the token
-            const authorizationToken = await authenticatorInstance.show();
-            return authorizationToken;
+            // Shows the authentication modal flow and returns the fast payment token
+            const fastPaymentToken = await authenticatorInstance.show();
+            return fastPaymentToken;
         } catch (error) {
             console.error(error.message, "Error code:", error?.errorCode);
             throw error;
         }
     }
 
-    async function getAccountPaymentMethods(authorizationToken) {
+    async function getAccountPaymentMethods(fastPaymentToken) {
         try {
             // Gets the payment methods available for the user
-            const userPaymentMethods = await mp.getAccountPaymentMethods(authorizationToken);
+            const userPaymentMethods = await mp.getAccountPaymentMethods(fastPaymentToken);
             return userPaymentMethods;
         } catch (error) {
             console.error(error.message, "Error code:", error?.errorCode, "Details:", error?.details);
@@ -37,10 +37,10 @@ window.MPAuthenticator = (function () {
         }
     }
 
-    async function getCardId(authorizationToken, selectedPaymentMethodToken) {
+    async function getCardId(fastPaymentToken, selectedPaymentMethodToken) {
         try {
             // Gets the identification number from the selected payment method
-            const { card_id } = await mp.getCardId(authorizationToken, selectedPaymentMethodToken);
+            const { card_id } = await mp.getCardId(fastPaymentToken, selectedPaymentMethodToken);
             return card_id;
         } catch (error) {
             console.error(error.message, "Error code:", error?.errorCode, "Details:", error?.details);
@@ -70,10 +70,10 @@ window.MPAuthenticator = (function () {
         }
     }
 
-    async function updatePaymentMethodToken(authorizationToken, selectedPaymentMethodToken, cardToken) {
+    async function updatePaymentMethodToken(fastPaymentToken, selectedPaymentMethodToken, cardToken) {
         try {
             // Updates the card token (pseudotoken) for the selected payment method
-            await mp.updatePseudotoken(authorizationToken, selectedPaymentMethodToken, cardToken);
+            await mp.updatePseudotoken(fastPaymentToken, selectedPaymentMethodToken, cardToken);
         } catch (error) {
             throw error;
         }
@@ -82,7 +82,7 @@ window.MPAuthenticator = (function () {
     return {
         mp: mp,
         initializeAuthenticator,
-        getAuthorizationToken,
+        getFastPaymentToken,
         getAccountPaymentMethods,
         createSecureField,
         getCardId,
