@@ -413,9 +413,10 @@ async function setupInitialView() {
 
     try {
         await MPAuthenticator.initializeAuthenticator(totalAmount, payerEmail);
+        console.log("Mercado Pago Authenticator initialized");
         if (otherOptionsContainer) otherOptionsContainer.innerHTML = '';
     } catch (error) {
-        console.error("Script: Error during start call in setupInitialView:", error);
+        console.error("Error during start call in setupInitialView:", error);
         showErrorMessage(otherOptionsContainer, error.message);
         return;
     }

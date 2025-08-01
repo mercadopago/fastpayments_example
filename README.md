@@ -1,4 +1,4 @@
-# Fast payments with Mercado Pago
+# Fast Payments with Mercado Pago
 
 This project demonstrates integration with Mercado Pago's Fast Payments, including the handling of saved payment methods and the collection of CVV.
 
@@ -12,7 +12,7 @@ This project demonstrates integration with Mercado Pago's Fast Payments, includi
 │   └── style.css           # Styles for the application
 ├── js/
 │   ├── mercadoPago.js      # Mercado Pago SDK interaction logic (encapsulated in window.MPAuthenticator)
-│   └── script.js           # DOM manipulation, UI logic, calls to MPAuthenticator
+│   └── checkoutFlow.js      # DOM manipulation, UI logic, calls to MPAuthenticator
 └── README.md               # This documentation
 ```
 
@@ -30,7 +30,7 @@ const publicKey = "<YOUR_PUBLIC_KEY>"; // Replace with your actual public key
 
 ### 2. Payer Information
 
-In `js/script.js`, replace the placeholders with the actual payer information:
+In `js/checkoutFlow.js`, replace the placeholders with the actual payer information:
 
 ```javascript
 const payerEmail = "<PAYER_EMAIL>"; // Replace with the payer's email address
@@ -47,7 +47,7 @@ const totalAmount = "<TOTAL_AMOUNT>"; // Replace with the payment amount (e.g., 
 
 The Mercado Pago interaction logic is centralized in the `js/mercadoPago.js` file. This file defines a global object `window.MPAuthenticator` that encapsulates all calls to the Mercado Pago SDK and related flow logic. The main responsibilities of `MPAuthenticator` include:
 
-- **`MPAuthenticator.initializeAuthenticator(amount, payerEmail)`**: Called on page load (by `script.js`) to initialize the `mp.authenticator(amount, payerEmail)` and stores the `authenticatorInstance`.
+- **`MPAuthenticator.initializeAuthenticator(amount, payerEmail)`**: Called on page load (by `checkoutFlow.js`) to initialize the `mp.authenticator(amount, payerEmail)` and stores the `authenticatorInstance`.
 - **`MPAuthenticator.getFastPaymentToken()`**: Uses the stored `authenticatorInstance` to call `authenticatorInstance.show()` and returns the `fastPaymentToken`.
 - **`MPAuthenticator.getAccountPaymentMethods(fastPaymentToken)`**: Fetches the payment methods available to the user.
 - **`MPAuthenticator.getCardId(fastPaymentToken, selectedPaymentMethodToken)`**: Gets the ID of a saved card.
@@ -56,7 +56,7 @@ The Mercado Pago interaction logic is centralized in the `js/mercadoPago.js` fil
 - **`MPAuthenticator.updatePaymentMethodToken(fastPaymentToken, selectedPaymentMethodToken, cardToken)`**: Updates the saved card's token (pseudotoken) with the newly generated `cardToken`.
 - Exposes the main SDK instance: `MPAuthenticator.mp`.
 
-The `js/script.js` file is responsible for:
+The `js/checkoutFlow.js` file is responsible for:
 
 - Initializing the authenticator on page load by calling `MPAuthenticator.initializeAuthenticator`.
 - Orchestrating the display of payment methods: initially showing a trigger, then upon click, calling `MPAuthenticator.getFastPaymentToken` followed by `MPAuthenticator.getAccountPaymentMethods`.
